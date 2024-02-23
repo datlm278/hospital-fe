@@ -12,6 +12,7 @@ import {HospitalService} from "../service/hospital.service";
 import {PatientModel} from "../model/patient.model";
 import {AddOrEditPatientComponent} from "../add-or-edit-patient/add-or-edit-patient.component";
 import {AddOrEditHistoryComponent} from "../add-or-edit-history/add-or-edit-history.component";
+import {ToastModule} from "primeng/toast";
 
 export interface DailyRecordData extends BaseAddOrUpdateDialogData {
   patientId: number;
@@ -27,7 +28,8 @@ export interface DailyRecordData extends BaseAddOrUpdateDialogData {
     MatIcon,
     MatIconButton,
     MatTooltip,
-    MatButton
+    MatButton,
+    ToastModule
   ],
   templateUrl: './history-dialog.component.html',
   styleUrl: './history-dialog.component.css',
