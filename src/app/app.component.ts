@@ -9,16 +9,17 @@ import {MessageService} from "primeng/api";
 import {HospitalService} from "./service/hospital.service";
 import {PatientModel} from "./model/patient.model";
 import moment from 'moment';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {AddOrEditPatientComponent} from "./add-or-edit-patient/add-or-edit-patient.component";
 import {ToastModule} from "primeng/toast";
 import {DailyRecordModel} from "./model/daily-record.model";
 import {HistoryDialogComponent} from "./history-dialog/history-dialog.component";
+import {DischargeDialogComponent} from "./discharge-dialog/discharge-dialog.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatTabGroup, MatTab, MatIcon, MatIconButton, MatTooltip, MatButton, NgForOf, ToastModule],
+  imports: [RouterOutlet, MatTabGroup, MatTab, MatIcon, MatIconButton, MatTooltip, MatButton, NgForOf, ToastModule, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [MessageService]
@@ -181,11 +182,40 @@ export class AppComponent implements OnInit {
       setTimeout(() => {
         this.dialog.open(HistoryDialogComponent, {
           data: {
-            dailyRecord: this.dailyRecord
+            dailyRecord: this.dailyRecord,
+            patientId: id
           },
           width: '60%',
         });
       }, 100)
     }
+  }
+
+  showDischarge(id: number | undefined) {
+    const confirmDialog = this.dialog.open(DischargeDialogComponent, {
+      maxWidth: "700px",
+    });
+    confirmDialog.afterClosed().subscribe(dialogResult => {
+      if (dialogResult === true) {
+        if (id) {
+          this.hospitalService.dischargePatient(id).subscribe({
+            next: () => {
+
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Thành công',
+                detail: "Bệnh nhân xuất viện thành công",
+                icon: "pi pi-check",
+                life: 15000
+              });
+
+              this.getAllPatient();
+            }, error: err => {
+              console.log("error-delete", err);
+            }
+          })
+        }
+      }
+    })
   }
 }

@@ -55,8 +55,11 @@
         name="gender"
         placeholder="Lựa chọn giới tính"
         required>
-        <ng-option [value]="data.patient.gender">
-          {{data.patient.gender == 0 ? 'Nam' : 'Nữ'}}
+        <ng-option [value]="0">
+          Nam
+        </ng-option>
+        <ng-option [value]="1">
+          Nữ
         </ng-option>
       </ng-select>
       <div

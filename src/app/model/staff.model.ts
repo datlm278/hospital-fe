@@ -1,12 +1,11 @@
 export class StaffModel {
   id?: number;
-  patientId?: number;
-  patientName?: string;
-  doctorId?: number;
-  doctorName?: string;
-  nurseId?: number;
-  nurseName?: string;
-  createDate?: string;
-  note?: string;
-  result?: string;
+  fullName?: string;
+  gender?: number;
+  address?: string;
+  dob?: string;
+  phoneNumber?: string;
+  cccdNumber?: string;
+  type?: string;
+  information?: string;
 }

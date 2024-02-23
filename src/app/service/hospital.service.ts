@@ -43,14 +43,14 @@ export class HospitalService extends BaseService{
   }
 
   createDailyRecord(body: DailyRecordModel) {
-    return this.post(HospitalUrl.PATIENT.BASE, body, {});
+    return this.post(HospitalUrl.DAILY_RECORD.BASE, body, {});
   }
 
   updateDailyRecord(id: number, body: DailyRecordModel) {
-    return this.put(`${HospitalUrl.PATIENT.BASE}/${id}`, body,);
+    return this.put(`${HospitalUrl.DAILY_RECORD.BASE}/${id}`, body,);
   }
 
   getDetailDailyRecord(id: number) {
-    return this.get(`${HospitalUrl.PATIENT.BASE}/${id}`, {})
+    return this.get(`${HospitalUrl.DAILY_RECORD.BASE}/${id}`, {})
   }
 }

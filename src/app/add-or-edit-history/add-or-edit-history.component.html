@@ -1,0 +1,100 @@
+<h1 mat-dialog-title class="text-uppercase">
+  {{ data.isCreate ? "Thêm mới" : "Cập nhật" }} lịch sử
+</h1>
+<div mat-dialog-content class="mt-2">
+  <form
+    #addForm='ngForm'
+    class="row justify-content-center">
+
+    <div class="mb-3">
+      <label class="form-label" for="doctorId">
+        Bác sĩ điều trị<span class="text-danger">*</span>
+      </label>
+      <ng-select
+        [(ngModel)]="data.dailyRecord.doctorId"
+        id="doctorId"
+        name="doctorId"
+        #doctorId="ngModel"
+        placeholder="Lựa chọn bác sĩ điều trị"
+        required>
+        <ng-option *ngFor="let item of doctors" [value]="item.id">
+          {{ item.fullName }}
+        </ng-option>
+      </ng-select>
+      <div
+        *ngIf="doctorId.invalid && (doctorId.dirty || doctorId.touched)
+        && doctorId.errors?.['required']"
+        class="text-danger text-xs">
+        Vui lòng nhập trường này
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="nurseId">
+        Y tá theo dõi<span class="text-danger">*</span>
+      </label>
+      <ng-select
+        [(ngModel)]="data.dailyRecord.nurseId"
+        id="nurseId"
+        name="nurseId"
+        #nurseId="ngModel"
+        placeholder="Lựa chọn y tá theo dõi"
+        required>
+        <ng-option *ngFor="let item of nurses" [value]="item.id">
+          {{ item.fullName }}
+        </ng-option>
+      </ng-select>
+      <div
+        *ngIf="nurseId.invalid && (nurseId.dirty || nurseId.touched)
+        && nurseId.errors?.['required']"
+        class="text-danger text-xs">
+        Vui lòng nhập trường này
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="result" class="form-label">
+        Kết quả khám<span class="text-danger">*</span>
+      </label>
+      <textarea rows="5"
+                #result="ngModel"
+                [(ngModel)]="data.dailyRecord.result"
+                class="form-control"
+                id="result"
+                name="result"
+                placeholder="Nhập kết quả khám"
+                required></textarea>
+      <div
+        *ngIf="result.invalid && (result.dirty || result.touched) && result.errors?.['required']"
+        class="text-danger">
+        Vui lòng nhập trường này
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="result" class="form-label">
+        Ghi chú
+      </label>
+      <textarea rows="5"
+                #note="ngModel"
+                [(ngModel)]="data.dailyRecord.note"
+                class="form-control"
+                id="note"
+                name="note"
+                placeholder="Nhập ghi chú"></textarea>
+    </div>
+
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button class="btn btn-secondary btn-sm m-2" (click)="close()"><span>Huỷ</span></button>
+  <button
+    type="submit"
+    [disabled]="!addForm.valid"
+    class="btn btn-primary btn-sm"
+    [mat-dialog-close]="data.dailyRecord">
+    <span>Lưu</span>
+  </button>
+</div>
+
